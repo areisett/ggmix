@@ -308,8 +308,9 @@ lmmlasso.fullrank <- function(ggmix_object,
     eta = coefficient_mat["eta", lambdas_fit, drop = FALSE],
     sigma2 = coefficient_mat["sigma2", lambdas_fit, drop = FALSE],
     nlambda = length(lambdas_fit),
-    cov_names = colnames(ggmix_object[["x"]]) # , used in predict function, this includes intercept
-  )
+    cov_names = colnames(ggmix_object[["x"]]), # , used in predict function, this includes intercept
+    niterations = k,
+    converged = converged)
 
   class(out) <- c(paste0("lasso", attr(ggmix_object, "class")), "ggmix_fit")
   return(out)
