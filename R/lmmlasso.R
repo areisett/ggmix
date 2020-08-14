@@ -99,7 +99,7 @@ lmmlasso.fullrank <- function(ggmix_object,
   
   iter <- integer(nlambda)
   converged <- logical(nlambda)
-  names(iter) <- names(converged) <- lambda
+  names(iter) <- names(converged) <- lambda_names
 
   out_print <- matrix(NA,
     nrow = nlambda, ncol = 4,
