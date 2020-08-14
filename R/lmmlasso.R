@@ -15,14 +15,16 @@
 #' @export
 lmmlasso <- function(ggmix_object, ...) UseMethod("lmmlasso")
 
-#' @rdname lmmlasso
+
+#' @export
 lmmlasso.default <- function(ggmix_object, ...) {
   stop(strwrap("This function should be used with a ggmix object of class
                lowrank or fullrank"))
 }
 
 
-#' @rdname lmmlasso
+
+#' @export
 lmmlasso.fullrank <- function(ggmix_object,
                               ...,
                               penalty.factor,
