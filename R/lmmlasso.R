@@ -94,12 +94,9 @@ lmmlasso.fullrank <- function(ggmix_object,
     )
   )
   
-  diagnostic_mat <- matrix(nrow = nlambda, 
-                           ncol = 2,
-                           dimnames = list(
-                             lambda_names,
-                             c('niter',
-                               'converged')))
+  iter <- integer(nlambda)
+  converged <- logical(nlambda)
+  names(iter) <- names(converged) <- lambda
 
   out_print <- matrix(NA,
     nrow = nlambda, ncol = 4,
@@ -277,8 +274,9 @@ lmmlasso.fullrank <- function(ggmix_object,
 
     coefficient_mat[, LAMBDA] <- Theta_next
     
-    diagnostic_mat[LAMBDA, ] <- c(k, converged)
-
+    iter[LAMBDA] <- k
+    converged[LAMBDA] <- converged
+    
     deviance_change <- abs((out_print[lambda_index, "%Dev"] -
       out_print[lambda_index - 1, "%Dev"]) /
       out_print[lambda_index, "%Dev"])
@@ -318,7 +316,8 @@ lmmlasso.fullrank <- function(ggmix_object,
     sigma2 = coefficient_mat["sigma2", lambdas_fit, drop = FALSE],
     nlambda = length(lambdas_fit),
     cov_names = colnames(ggmix_object[["x"]]), # , used in predict function, this includes intercept
-    diagnostic_mat = diagnostic_mat)
+    iter = iter,
+    converged = converged)
 
   class(out) <- c(paste0("lasso", attr(ggmix_object, "class")), "ggmix_fit")
   return(out)
